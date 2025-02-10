@@ -63,14 +63,4 @@ public class Usuario {
         this.eventosComprados = eventosComprados;
     }
 
-    public void comprarIngreeso(Evento evento) {
-        if (evento.getIngressosDisponiveis()>0) {
-            evento.adicionarParticipante(this);
-            eventosComprados.add(evento);
-            evento.venderIngreeso();
-            System.out.println("Compra realizada por " + this.getNome() + ", para o evento: " + evento.getNome());
-        } else {
-            System.out.println("Ingressos esgotados");
-        }
-    }
 }

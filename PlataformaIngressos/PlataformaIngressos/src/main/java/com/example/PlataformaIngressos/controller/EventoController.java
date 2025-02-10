@@ -3,9 +3,7 @@ package com.example.PlataformaIngressos.controller;
 import com.example.PlataformaIngressos.model.Evento;
 import com.example.PlataformaIngressos.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,4 +18,11 @@ public class EventoController {
     public List<Evento> listarEventos() {
         return eventoService.listarEventos();
     }
+
+    @PostMapping("/{eventoId}/comprar/{usuarioId}")
+    public String venderIngresso(@PathVariable Long eventoId, @PathVariable Long usuarioId) {
+        return eventoService.venderIngresso(eventoId, usuarioId);
+    }
+
+
 }

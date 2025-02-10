@@ -79,12 +79,6 @@ public class Evento {
         this.ingressosDisponiveis = ingressosDisponiveis;
     }
 
-    public void venderIngreeso() {
-        if (this.getIngressosDisponiveis()>0) {
-            this.setIngressosDisponiveis(getIngressosDisponiveis()-1);
-        }
-    }
-
     public void adicionarParticipante(Usuario usuario) {
         participantes.add(usuario);
     }
