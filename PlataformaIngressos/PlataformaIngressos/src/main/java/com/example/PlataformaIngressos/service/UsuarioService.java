@@ -62,8 +62,8 @@ public class UsuarioService {
         return "Perfil atualizado com sucesso";
     }
 
-    public String deletarUsuario(Long id) {
-        Usuario usuario = usuarioRepository.findById(id).orElseThrow(()->new RuntimeException("Usuário não encontrado"));
+    public String deletarUsuario(Long usuarioId) {
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(()->new RuntimeException("Usuário não encontrado"));
         usuarioRepository.delete(usuario);
         return "Usuário deletado com sucesso!";
     }

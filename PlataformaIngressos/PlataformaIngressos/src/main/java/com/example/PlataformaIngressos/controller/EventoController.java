@@ -14,14 +14,29 @@ public class EventoController {
     @Autowired
     private EventoService eventoService;
 
-    @GetMapping
+    @GetMapping("listaEventos")
     public List<Evento> listarEventos() {
         return eventoService.listarEventos();
+    }
+
+    @GetMapping("/{nomeEvento}")
+    public Evento buscarNomeDoEvento(@PathVariable String nomeEvento) {
+        return eventoService.buscarNomeDoEvento(nomeEvento);
     }
 
     @PostMapping("/{eventoId}/comprar/{usuarioId}")
     public String venderIngresso(@PathVariable Long eventoId, @PathVariable Long usuarioId) {
         return eventoService.venderIngresso(eventoId, usuarioId);
+    }
+
+    @DeleteMapping("/{eventoId}/cancelar/{usuarioId}")
+    public String cancelarCompra(Long eventoId, Long usuarioId) {
+        return eventoService.cancelarCompra(eventoId,usuarioId);
+    }
+
+    @PostMapping
+    public String atualizarEvento(String nomeEvento, @RequestBody Evento eventoAtualizado) {
+        return eventoService.atualizarEvento(nomeEvento, eventoAtualizado);
     }
 
 
