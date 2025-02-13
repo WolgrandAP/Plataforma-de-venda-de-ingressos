@@ -6,6 +6,7 @@ import com.example.PlataformaIngressos.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,6 +18,9 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    public List<Usuario> listarUsuarios() {
+        return usuarioRepository.findAll();
+    }
 
     public String cadastrarUsuario(Usuario usuario) {
 
@@ -36,12 +40,14 @@ public class UsuarioService {
 
         Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        if (usuario.getSenha().equals(senha)) {
-            return "Login bem-sucedido para o usuário: " + usuario.getNome();
+        if (usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)) {
+            return "Login bem-sucedido.";
         } else {
-            return "Senha incorreta";
+            return "Email/Senha incorretas.";
         }
+
     }
+
 
     public String editarPerfil(Long usuarioId, Usuario usuarioAtualizado) {
 

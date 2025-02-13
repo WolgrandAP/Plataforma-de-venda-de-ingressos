@@ -5,6 +5,8 @@ import com.example.PlataformaIngressos.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/usuario")
 public class UsuarioController {
@@ -12,12 +14,18 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @GetMapping("/listarUsuarios")
+    public List<Usuario> listarUsuario() {
+        return usuarioService.listarUsuarios();
+    }
+
+    //TESTE
     @GetMapping("/{nome}")
     public String mostarNome(@PathVariable String nome) {
         return nome;
     }
 
-    @PostMapping("/cadastrar")
+    @PostMapping("/cadastrarUsuario")
     public String cadastrarUsuario(@RequestBody Usuario usuario) {
         return usuarioService.cadastrarUsuario(usuario);
     }
@@ -32,7 +40,7 @@ public class UsuarioController {
         return usuarioService.editarPerfil(usuarioId, usuarioAtualizado);
     }
 
-    @DeleteMapping("/{usuarioId}")
+    @DeleteMapping("/deletarUsuario/{usuarioId}")
     public String deletarUsuario(@PathVariable Long usuarioId) {
         return usuarioService.deletarUsuario(usuarioId);
     }

@@ -6,6 +6,7 @@ import com.example.PlataformaIngressos.repository.EventoRepository;
 import com.example.PlataformaIngressos.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,18 @@ public class EventoService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    public String adicionarEvento(Evento evento) {
+
+        Optional<Evento> eventoExistente = eventoRepository.findByNome(evento.getNome());
+
+        if (eventoExistente.isPresent()) {
+            return "Evento já existente";
+        } else {
+            eventoRepository.save(evento);
+            return "Evento adicionado";
+        }
+    }
+
     public List<Evento> listarEventos() {
         return eventoRepository.findAll();
     }
@@ -26,7 +39,6 @@ public class EventoService {
     public Evento buscarNomeDoEvento(String nomeEvento) {
         return eventoRepository.findByNome(nomeEvento).orElseThrow(()->new RuntimeException("Evento não encontrado"));
     }
-
 
     public String venderIngresso(Long eventoId, Long usuarioId) {
         Evento evento = eventoRepository.findById(eventoId).orElseThrow(() -> new RuntimeException("Evento não encontrado"));
@@ -38,7 +50,7 @@ public class EventoService {
         }
 
         if (evento.getIngressosDisponiveis() > 0) {
-            evento.adicionarParticipante(usuario);
+            evento.getParticipantes().add(usuario);
             usuario.getEventosComprados().add(evento);
             evento.setIngressosDisponiveis(evento.getIngressosDisponiveis()-1);
             eventoRepository.save(evento);

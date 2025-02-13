@@ -14,27 +14,32 @@ public class EventoController {
     @Autowired
     private EventoService eventoService;
 
-    @GetMapping("listarEventos")
+    @PostMapping("/adicionar")
+    public String adicionarEvento(@RequestBody Evento evento) {
+        return eventoService.adicionarEvento(evento);
+    }
+
+    @GetMapping("/listarEventos")
     public List<Evento> listarEventos() {
         return eventoService.listarEventos();
     }
 
-    @GetMapping("/{nomeEvento}")
+    @GetMapping("/buscarNome/{nomeEvento}")
     public Evento buscarNomeDoEvento(@PathVariable String nomeEvento) {
         return eventoService.buscarNomeDoEvento(nomeEvento);
     }
 
-    @PostMapping("/{eventoId}/comprar/{usuarioId}")
+    @PostMapping("/vender/{eventoId}/comprar/{usuarioId}")
     public String venderIngresso(@PathVariable Long eventoId, @PathVariable Long usuarioId) {
         return eventoService.venderIngresso(eventoId, usuarioId);
     }
 
-    @DeleteMapping("/{eventoId}/cancelar/{usuarioId}")
+    @DeleteMapping("/cancelarCompra/{eventoId}/cancelar/{usuarioId}")
     public String cancelarCompra(Long eventoId, Long usuarioId) {
         return eventoService.cancelarCompra(eventoId,usuarioId);
     }
 
-    @PostMapping
+    @PutMapping("/atualizarEvento")
     public String atualizarEvento(String nomeEvento, @RequestBody Evento eventoAtualizado) {
         return eventoService.atualizarEvento(nomeEvento, eventoAtualizado);
     }
