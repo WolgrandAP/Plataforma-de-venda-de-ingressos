@@ -14,7 +14,7 @@ public class EventoController {
     @Autowired
     private EventoService eventoService;
 
-    @GetMapping("listaEventos")
+    @GetMapping("listarEventos")
     public List<Evento> listarEventos() {
         return eventoService.listarEventos();
     }

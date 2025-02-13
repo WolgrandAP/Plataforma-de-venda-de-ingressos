@@ -12,6 +12,11 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @GetMapping("/{nome}")
+    public String mostarNome(@PathVariable String nome) {
+        return nome;
+    }
+
     @PostMapping("/cadastrar")
     public String cadastrarUsuario(@RequestBody Usuario usuario) {
         return usuarioService.cadastrarUsuario(usuario);
