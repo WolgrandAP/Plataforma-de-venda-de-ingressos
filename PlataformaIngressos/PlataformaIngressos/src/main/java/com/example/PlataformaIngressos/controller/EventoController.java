@@ -1,5 +1,6 @@
 package com.example.PlataformaIngressos.controller;
 
+import com.example.PlataformaIngressos.dto.EventoDTO;
 import com.example.PlataformaIngressos.model.Evento;
 import com.example.PlataformaIngressos.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class EventoController {
     }
 
     @GetMapping("/listarEventos")
-    public List<Evento> listarEventos() {
+    public List<EventoDTO> listarEventos() {
         return eventoService.listarEventos();
     }
 
