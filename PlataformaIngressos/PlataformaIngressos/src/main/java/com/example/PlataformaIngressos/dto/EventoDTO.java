@@ -14,7 +14,12 @@ public class EventoDTO {
     private int ingressosDisponiveis;
 
     public EventoDTO(Evento evento) {
-        BeanUtils.copyProperties(evento, this);
+        this.id = evento.getId();
+        this.nome = evento.getNome();
+        this.descricao = evento.getDescricao();
+        this.precoIngresso = evento.getPrecoIngresso();
+        this.quantidadeIngresso = evento.getQuantidadeIngresso();
+        this.ingressosDisponiveis = evento.getIngressosDisponiveis();
     }
 
     public EventoDTO() {}

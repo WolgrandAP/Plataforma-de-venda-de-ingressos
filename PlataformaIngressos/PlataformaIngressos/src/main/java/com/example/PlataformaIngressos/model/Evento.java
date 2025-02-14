@@ -1,5 +1,6 @@
 package com.example.PlataformaIngressos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -19,6 +20,7 @@ public class Evento {
     private int ingressosDisponiveis;
 
     @ManyToMany(mappedBy = "eventosComprados")
+    @JsonIgnore
     private Set<Usuario> participantes = new HashSet<>();
 
     public Evento() {}
