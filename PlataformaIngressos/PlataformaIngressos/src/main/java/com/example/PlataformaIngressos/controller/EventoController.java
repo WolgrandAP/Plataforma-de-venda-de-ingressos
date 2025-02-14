@@ -39,8 +39,8 @@ public class EventoController {
         return eventoService.cancelarCompra(eventoId,usuarioId);
     }
 
-    @PutMapping("/atualizarEvento")
-    public String atualizarEvento(String nomeEvento, @RequestBody Evento eventoAtualizado) {
+    @PutMapping("/atualizarEvento/{nomeEvento}")
+    public String atualizarEvento(@PathVariable String nomeEvento, @RequestBody Evento eventoAtualizado) {
         return eventoService.atualizarEvento(nomeEvento, eventoAtualizado);
     }
 
