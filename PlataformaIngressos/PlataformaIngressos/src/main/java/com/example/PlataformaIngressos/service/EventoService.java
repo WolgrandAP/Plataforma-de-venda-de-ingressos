@@ -46,7 +46,7 @@ public class EventoService {
         Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         if (usuario.getEventosComprados().contains(evento)) {
-            return "Você já comprou ingressos para este evento.";
+            return "Você já comprou ingressos para este evento. Compra realizada com sucesso novamente.";
         }
 
         if (evento.getIngressosDisponiveis() > 0) {
