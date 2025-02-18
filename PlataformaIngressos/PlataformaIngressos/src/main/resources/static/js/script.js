@@ -1,49 +1,47 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Função para carregar os eventos
-    function carregarEventos() {
-        fetch('/evento/listaEventos')  // URL para pegar eventos da API
-            .then(response => response.json())
-            .then(data => {
-                const eventosLista = document.getElementById("eventos-lista");
-                eventosLista.innerHTML = '';  // Limpa a lista antes de adicionar
+const API_URL = "http://localhost:8080"; // Ajuste conforme necessário
 
-                data.forEach(evento => {
-                    const eventoDiv = document.createElement('div');
-                    eventoDiv.classList.add('evento');
-                    eventoDiv.innerHTML = `
-                        <img src="${evento.imagemUrl}" alt="${evento.nome}">
-                        <h3>${evento.nome}</h3>
-                        <p>Data: ${evento.data}</p>
-                        <button onclick="mostrarDetalhes(${evento.id})">Ver Detalhes</button>
-                    `;
-                    eventosLista.appendChild(eventoDiv);
-                });
-            })
-            .catch(error => console.error('Erro ao carregar eventos:', error));
-    }
+// Função para cadastrar um novo usuário
+async function cadastrarUsuario() {
+    const nome = document.getElementById("nomeCadastro").value;
+    const email = document.getElementById("emailCadastro").value;
+    const senha = document.getElementById("senhaCadastro").value;
 
-    // Função para mostrar detalhes do evento
-    function mostrarDetalhes(id) {
-        fetch(`/evento/${id}`)  // URL para pegar os detalhes do evento
-            .then(response => response.json())
-            .then(data => {
-                const eventoDetalhes = document.getElementById("evento-detalhes");
-                eventoDetalhes.innerHTML = `
-                    <h3>${data.nome}</h3>
-                    <p>${data.descricao}</p>
-                    <p>Data: ${data.data}</p>
-                    <p>Preço: R$ ${data.preco}</p>
-                    <button onclick="comprarIngresso(${data.id})">Comprar Ingresso</button>
-                `;
-            })
-            .catch(error => console.error('Erro ao carregar detalhes:', error));
-    }
+    const response = await fetch(`${API_URL}/usuario/cadastrarUsuario`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, email, senha })
+    });
 
-    // Função para simular a compra do ingresso
-    function comprarIngresso("/{eventoId}/comprar/{usuarioId}") {
-        alert(`Ingressos para o evento com ID ${id} comprados!`);
-    }
+    const result = await response.text();
+    alert(result);
+}
 
-    // Carrega os eventos ao carregar a página
-    carregarEventos();
-});
+// Função para realizar login
+async function loginUsuario() {
+    const email = document.getElementById("emailLogin").value;
+    const senha = document.getElementById("senhaLogin").value;
+
+    const response = await fetch(`${API_URL}/usuario/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, senha })
+    });
+
+    const result = await response.text();
+    alert(result);
+}
+
+// Função para listar eventos disponíveis
+async function listarEventos() {
+    const response = await fetch(`${API_URL}/evento/listarEventos`);
+    const eventos = await response.json();
+
+    const listaEventos = document.getElementById("listaEventos");
+    listaEventos.innerHTML = "";
+
+    eventos.forEach(evento => {
+        const item = document.createElement("li");
+        item.innerHTML = `${evento.nome} - ${evento.data} - ${evento.local} <button onclick="comprarIngresso(${evento.id})">Comprar</button>`;
+        listaEventos.appendChild(item);
+    });
+}

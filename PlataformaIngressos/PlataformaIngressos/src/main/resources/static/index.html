@@ -1,32 +1,68 @@
-<!doctype html>
-<html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Plataforma de venda de ingressos</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IF-tickts</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Platafoma de venda de ingressos</h1>
-    </header>
 
-    <main>
-        <h2>Eventos Disponíveis</h2>
-        <div id="eventos-lista">
-            <!-- Lista de eventos será gerada aqui -->
-        </div>
+<header>
+    <h1>Bem-vindo ao IF-TICKETS!</h1>
+    <nav>
+        <ul>
+            <li><a href="#" onclick="mostrarSecao('login')">Login</a></li>
+            <li><a href="#" onclick="mostrarSecao('formularioCadastro')">Criar Conta</a></li>
+        </ul>
+    </nav>
+</header>
 
-        <h2>Detalhes do Evento</h2>
-        <div id="evento-detalhes">
-            <!-- Detalhes do evento selecionado -->
-        </div>
-    </main>
+<section id="login">
+    <h2>Faça Login</h2>
+    <label for="email">E-mail:</label>
+    <input type="email" id="email" placeholder="Digite seu e-mail">
 
-    <footer>
-        <p>&copy; 2025 Plataforma de Venda de Ingressos</p>
-    </footer>
+    <label for="senha">Senha:</label>
+    <input type="password" id="senha" placeholder="Digite sua senha">
 
-    <script src="/static/js/script.js"></script>
+    <button id="botaoLogin">Entrar</button>
+    <p id="mensagemLogin"></p>
+    <p><a href="#" id="linkRecuperarSenha">Esqueci minha senha</a></p>
+</section>
+
+<section id="formularioCadastro" style="display: none;">
+    <h2>Cadastro de Usuário</h2>
+
+    <label for="nomeCadastro">Nome:</label>
+    <input type="text" id="nomeCadastro" placeholder="Digite seu nome">
+
+    <label for="emailCadastro">E-mail:</label>
+    <input type="email" id="emailCadastro" placeholder="Digite seu e-mail">
+
+    <label for="senhaCadastro">Senha:</label>
+    <input type="password" id="senhaCadastro" placeholder="Digite sua senha">
+
+    <label for="confirmarSenha">Confirmar Senha:</label>
+    <input type="password" id="confirmarSenha" placeholder="Confirme sua senha">
+
+    <button id="botaoCadastrar">Cadastrar</button>
+    <p id="mensagemCadastro"></p>
+</section>
+
+<footer>
+    <p>&copy; 2025 IF-tickts. Todos os direitos reservados.</p>
+</footer>
+
+<!-- Corrigindo erro de "mostrarSecao is not defined" -->
+<script>
+    function mostrarSecao(secaoId) {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("formularioCadastro").style.display = "none";
+        document.getElementById(secaoId).style.display = "block";
+    }
+</script>
+
+<script src="script.js"></script>
 </body>
 </html>
