@@ -45,3 +45,22 @@ async function listarEventos() {
         listaEventos.appendChild(item);
     });
 }
+
+// Função para comprar um ingresso
+async function comprarIngresso(eventoId) {
+    const usuarioId = 1; // Altere para pegar o ID do usuário autenticado
+
+    const response = await fetch(`${API_URL}/evento/vender/${eventoId}/comprar/${usuarioId}`, {
+        method: "POST"
+    });
+
+    const result = await response.text();
+    alert(result);
+}
+
+// Adicionar eventos aos botões
+document.getElementById("btnCadastrar").addEventListener("click", cadastrarUsuario);
+document.getElementById("btnLogin").addEventListener("click", loginUsuario);
+
+// Carregar eventos ao carregar a página
+window.onload = listarEventos;
