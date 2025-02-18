@@ -1,6 +1,6 @@
-const API_URL = "http://localhost:8080"; // Ajuste conforme necessário
+const API_URL = "http://localhost:8080";
 
-// Função para cadastrar um novo usuário
+//cadastrar um novo usuário
 async function cadastrarUsuario() {
     const nome = document.getElementById("nomeCadastro").value;
     const email = document.getElementById("emailCadastro").value;
@@ -16,7 +16,7 @@ async function cadastrarUsuario() {
     alert(result);
 }
 
-// Função para realizar login
+//realizar login
 async function loginUsuario() {
     const email = document.getElementById("emailLogin").value;
     const senha = document.getElementById("senhaLogin").value;
@@ -31,7 +31,7 @@ async function loginUsuario() {
     alert(result);
 }
 
-// Função para listar eventos disponíveis
+//listar eventos disponíveis
 async function listarEventos() {
     const response = await fetch(`${API_URL}/evento/listarEventos`);
     const eventos = await response.json();
@@ -46,7 +46,7 @@ async function listarEventos() {
     });
 }
 
-// Função para comprar um ingresso
+//comprar um ingresso
 async function comprarIngresso(eventoId) {
     const usuarioId = 1; // Altere para pegar o ID do usuário autenticado
 
@@ -58,9 +58,9 @@ async function comprarIngresso(eventoId) {
     alert(result);
 }
 
-// Adicionar eventos aos botões
+//adicionar eventos aos botões
 document.getElementById("btnCadastrar").addEventListener("click", cadastrarUsuario);
 document.getElementById("btnLogin").addEventListener("click", loginUsuario);
 
-// Carregar eventos ao carregar a página
+//carregar eventos ao carregar a página
 window.onload = listarEventos;

@@ -1,4 +1,3 @@
-/* Estilização geral */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -11,7 +10,6 @@ body {
     height: 100vh;
 }
 
-/* Cabeçalho */
 header {
     width: 100%;
     background-color: #261295;
@@ -22,7 +20,6 @@ header {
     top: 0;
 }
 
-/* Menu */
 nav ul {
     list-style: none;
     padding: 0;
@@ -44,7 +41,6 @@ nav ul li a:hover {
     text-decoration: underline;
 }
 
-/* Seções */
 section {
     background-color: #fff;
     padding: 20px;
@@ -59,7 +55,6 @@ h2 {
     margin-bottom: 15px;
 }
 
-/* Inputs e botões */
 input {
     width: 100%;
     padding: 10px;
@@ -83,7 +78,6 @@ button:hover {
     background-color: #45a049;
 }
 
-/* Links */
 a {
     color: #007bff;
     text-decoration: none;
@@ -93,7 +87,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Rodapé */
 footer {
     width: 100%;
     background: #333;
@@ -104,7 +97,6 @@ footer {
     bottom: 0;
 }
 
-/* Responsividade */
 @media screen and (max-width: 600px) {
     section {
         width: 90%;
