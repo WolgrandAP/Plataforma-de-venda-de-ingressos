@@ -1,12 +1,10 @@
-const API_URL = "http://localhost:8080";
-
 //cadastrar um novo usuário
 async function cadastrarUsuario() {
     const nome = document.getElementById("nomeCadastro").value;
     const email = document.getElementById("emailCadastro").value;
     const senha = document.getElementById("senhaCadastro").value;
 
-    const response = await fetch(`${API_URL}/usuario/cadastrarUsuario`, {
+    const response = await fetch(`http://localhost:8080/usuario/cadastrarUsuario`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nome, email, senha })
@@ -21,7 +19,7 @@ async function loginUsuario() {
     const email = document.getElementById("emailLogin").value;
     const senha = document.getElementById("senhaLogin").value;
 
-    const response = await fetch(`${API_URL}/usuario/login`, {
+    const response = await fetch(`http://localhost:8080/usuario/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, senha })
@@ -33,7 +31,7 @@ async function loginUsuario() {
 
 //listar eventos disponíveis
 async function listarEventos() {
-    const response = await fetch(`${API_URL}/evento/listarEventos`);
+    const response = await fetch(`http://localhost:8080/evento/listarEventos`);
     const eventos = await response.json();
 
     const listaEventos = document.getElementById("listaEventos");
@@ -50,7 +48,7 @@ async function listarEventos() {
 async function comprarIngresso(eventoId) {
     const usuarioId = 1; // Altere para pegar o ID do usuário autenticado
 
-    const response = await fetch(`${API_URL}/evento/vender/${eventoId}/comprar/${usuarioId}`, {
+    const response = await fetch(`http://localhost:8080/evento/vender/${eventoId}/comprar/${usuarioId}`, {
         method: "POST"
     });
 
