@@ -35,7 +35,7 @@ public class EventoController {
     }
 
     @DeleteMapping("/cancelarCompra/{eventoId}/cancelar/{usuarioId}")
-    public String cancelarCompra(Long eventoId, Long usuarioId) {
+    public String cancelarCompra(@PathVariable Long eventoId, @PathVariable Long usuarioId) {
         return eventoService.cancelarCompra(eventoId,usuarioId);
     }
 
