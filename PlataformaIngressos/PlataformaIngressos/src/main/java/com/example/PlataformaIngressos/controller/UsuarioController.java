@@ -32,8 +32,8 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public String login(String email, String senha) {
-        return usuarioService.login(email, senha);
+    public String login(@RequestBody Usuario usuario) {
+        return usuarioService.login(usuario);
     }
 
     @PutMapping("/editar/{usuarioId}")

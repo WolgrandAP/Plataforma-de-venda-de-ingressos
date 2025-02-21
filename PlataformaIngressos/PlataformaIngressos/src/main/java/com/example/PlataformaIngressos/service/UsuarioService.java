@@ -36,11 +36,14 @@ public class UsuarioService {
     }
 
 
-    public String login(String email, String senha) {
+    public String login(Usuario usuario) {
 
-        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        String email = usuario.getEmail();
+        String senha = usuario.getSenha();
 
-        if (usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)) {
+        Usuario user = usuarioRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        if (user.getEmail().equals(email) && user.getSenha().equals(senha)) {
             return "Login bem-sucedido.";
         } else {
             return "Email/Senha incorretas.";
