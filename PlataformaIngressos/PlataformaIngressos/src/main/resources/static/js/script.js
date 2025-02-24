@@ -27,6 +27,14 @@ async function loginUsuario() {
 
     const result = await response.text();
     alert(result);
+
+    if (result.success) {
+            // Armazena o ID do usuário no localStorage
+            localStorage.setItem('usuarioId', result.usuarioId);  // Suponha que a resposta contenha o ID do usuário
+            window.location.href = "tela1.html"; // Redireciona para a página de eventos
+    } else {
+            alert(result.message || "Erro ao fazer login.");
+
 }
 
 //listar eventos disponíveis
@@ -62,3 +70,49 @@ document.getElementById("btnLogin").addEventListener("click", loginUsuario);
 
 //carregar eventos ao carregar a página
 window.onload = listarEventos;
+
+async function listarEventos() {
+    const response = await fetch(`http://localhost:8080/evento/listarEventos`);
+    const eventos = await response.json();
+
+    const listaEventos = document.getElementById("listaEventos");
+    listaEventos.innerHTML = ""; // Limpa a lista antes de preencher
+
+    eventos.forEach(evento => {
+        const item = document.createElement("li");
+        item.innerHTML = `${evento.nome} - ${evento.data} - ${evento.local} <button onclick="comprarIngresso(${evento.id})">Comprar</button>`;
+        listaEventos.appendChild(item);
+    });
+}
+
+// Função para comprar ingresso
+async function comprarIngresso(eventoId) {
+    const usuarioId = localStorage.getItem('usuarioId'); // Recupera o ID do usuário do localStorage
+
+    if (!usuarioId) {
+        alert("Por favor, faça login primeiro.");
+        return;
+    }
+
+    const response = await fetch(`http://localhost:8080/evento/vender/${eventoId}/comprar/${usuarioId}`, {
+        method: "POST"
+    });
+
+    const result = await response.text();
+    alert(result);
+}
+
+// Função para fazer o logout
+function logout() {
+    localStorage.removeItem('usuarioId'); // Limpa o ID do usuário
+    window.location.href = "index.html"; // Redireciona para a tela inicial de login
+}
+
+// Carregar eventos quando a página for carregada
+window.onload = listarEventos;
+
+function mostrarSecao(secaoId) {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("formularioCadastro").style.display = "none";
+    document.getElementById(secaoId).style.display = "block";
+}
