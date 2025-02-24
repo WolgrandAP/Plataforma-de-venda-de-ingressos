@@ -34,7 +34,7 @@ async function loginUsuario() {
             window.location.href = "tela1.html"; // Redireciona para a página de eventos
     } else {
             alert(result.message || "Erro ao fazer login.");
-
+    }
 }
 
 //listar eventos disponíveis
