@@ -25,8 +25,7 @@ async function loginUsuario() {
         body: JSON.stringify({ email, senha })
     });
 
-    const result = await response.text();
-    alert(result);
+
 
     if (result.success) {
             // Armazena o ID do usuário no localStorage
