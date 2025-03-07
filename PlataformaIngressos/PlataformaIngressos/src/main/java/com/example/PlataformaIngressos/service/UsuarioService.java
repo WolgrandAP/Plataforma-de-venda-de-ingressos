@@ -30,7 +30,7 @@ public class UsuarioService {
             return "Já existe um usuário com este email";
         } else {
             usuarioRepository.save(usuario);
-            return "Usuário cadastrado com sucecsso.";
+            return "Usuário cadastrado com sucesso.";
         }
 
     }
@@ -41,12 +41,18 @@ public class UsuarioService {
         String email = usuario.getEmail();
         String senha = usuario.getSenha();
 
-        Usuario user = usuarioRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        Optional<Usuario> user = usuarioRepository.findByEmail(email);
 
-        if (user.getEmail().equals(email) && user.getSenha().equals(senha)) {
-            return "Login bem-sucedido.";
+        if (user.isPresent()) {
+            Usuario usuarioEncontrado = user.get();
+
+            if (usuarioEncontrado.getEmail().equals(email) && usuarioEncontrado.getSenha().equals(senha)) {
+                return "Login bem-sucedido.";
+            } else {
+                return "Email/Senha incorretas.";
+            }
         } else {
-            return "Email/Senha incorretas.";
+            return "Usuário não cadastrado.";
         }
 
     }
