@@ -25,15 +25,13 @@ async function loginUsuario() {
         body: JSON.stringify({ email, senha })
     });
 
+    const result = await response.text();
+    alert(result);
 
-
-    if (result.success) {
-            // Armazena o ID do usuário no localStorage
-            localStorage.setItem('usuarioId', result.usuarioId);  // Suponha que a resposta contenha o ID do usuário
-            window.location.href = "tela1.html"; // Redireciona para a página de eventos
-    } else {
-            alert(result.message || "Erro ao fazer login.");
+    if (result === "Login bem-sucedido.") {
+        window.location.href = "/tela1.html"; // Redireciona para a tela1.html
     }
+
 }
 
 //listar eventos disponíveis
