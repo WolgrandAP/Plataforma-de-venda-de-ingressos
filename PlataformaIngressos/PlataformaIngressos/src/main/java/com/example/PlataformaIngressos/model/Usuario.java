@@ -2,8 +2,8 @@ package com.example.PlataformaIngressos.model;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -16,12 +16,8 @@ public class Usuario {
     private String email;
     private String senha;
 
-    @ManyToMany
-    @JoinTable(
-            name = "usuario_evento",
-            joinColumns = @JoinColumn(name = "usuario_id"),
-            inverseJoinColumns = @JoinColumn(name = "evento_id"))
-    private Set<Evento> eventosComprados = new HashSet<>();
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Compra> compras = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -55,12 +51,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public Set<Evento> getEventosComprados() {
-        return eventosComprados;
+    public List<Compra> getCompras() {
+        return compras;
     }
 
-    public void setEventosComprados(Set<Evento> eventosComprados) {
-        this.eventosComprados = eventosComprados;
+    public void setCompras(List<Compra> compras) {
+        this.compras = compras;
     }
-
 }

@@ -45,4 +45,6 @@ public class UsuarioController {
     public String deletarUsuario(@PathVariable Long usuarioId) {
         return usuarioService.deletarUsuario(usuarioId);
     }
+
+
 }

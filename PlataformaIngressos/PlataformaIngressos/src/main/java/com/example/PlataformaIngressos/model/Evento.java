@@ -3,8 +3,8 @@ package com.example.PlataformaIngressos.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_evento")
@@ -19,9 +19,9 @@ public class Evento {
     private int quantidadeIngresso;
     private int ingressosDisponiveis;
 
-    @ManyToMany(mappedBy = "eventosComprados")
     @JsonIgnore
-    private Set<Usuario> participantes = new HashSet<>();
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
+    private List<Compra> participantes = new ArrayList<>();
 
     public Evento() {}
 
@@ -65,11 +65,11 @@ public class Evento {
         this.quantidadeIngresso = quantidadeIngresso;
     }
 
-    public Set<Usuario> getParticipantes() {
+    public List<Compra> getParticipantes() {
         return participantes;
     }
 
-    public void setParticipantes(Set<Usuario> participantes) {
+    public void setParticipantes(List<Compra> participantes) {
         this.participantes = participantes;
     }
 
@@ -81,7 +81,5 @@ public class Evento {
         this.ingressosDisponiveis = ingressosDisponiveis;
     }
 
-    public void adicionarParticipante(Usuario usuario) {
-        participantes.add(usuario);
-    }
+
 }

@@ -1,14 +1,15 @@
 package com.example.PlataformaIngressos.service;
 
+import com.example.PlataformaIngressos.model.Compra;
 import com.example.PlataformaIngressos.model.Evento;
 import com.example.PlataformaIngressos.model.Usuario;
+import com.example.PlataformaIngressos.repository.CompraRepository;
 import com.example.PlataformaIngressos.repository.EventoRepository;
 import com.example.PlataformaIngressos.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EventoService {
@@ -19,16 +20,15 @@ public class EventoService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private CompraRepository compraRepository;
+
     public String adicionarEvento(Evento evento) {
-
-        Optional<Evento> eventoExistente = eventoRepository.findByNome(evento.getNome());
-
-        if (eventoExistente.isPresent()) {
+        if (eventoRepository.findByNome(evento.getNome()).isPresent()) {
             return "Evento já existente";
-        } else {
-            eventoRepository.save(evento);
-            return "Evento adicionado";
         }
+        eventoRepository.save(evento);
+        return "Evento adicionado";
     }
 
     public List<Evento> listarEventos() {
@@ -36,52 +36,58 @@ public class EventoService {
     }
 
     public Evento buscarNomeDoEvento(String nomeEvento) {
-        return eventoRepository.findByNome(nomeEvento).orElseThrow(()->new RuntimeException("Evento não encontrado"));
+        return eventoRepository.findByNome(nomeEvento)
+                .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
     }
 
     public String venderIngresso(Long eventoId, Long usuarioId) {
-        Evento evento = eventoRepository.findById(eventoId).orElseThrow(() -> new RuntimeException("Evento não encontrado"));
+        Evento evento = eventoRepository.findById(eventoId)
+                .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
 
-        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
-        if (usuario.getEventosComprados().contains(evento)) {
-            return "Você já comprou ingressos para este evento. Compra realizada com sucesso novamente.";
-        }
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         if (evento.getIngressosDisponiveis() > 0) {
-            evento.getParticipantes().add(usuario);
-            usuario.getEventosComprados().add(evento);
-            evento.setIngressosDisponiveis(evento.getIngressosDisponiveis()-1);
-            eventoRepository.save(evento);
-            usuarioRepository.save(usuario);
-            return "Compra realizada com sucesso para o evento: " + evento.getNome();
 
+            Compra compra = new Compra();
+            compra.setUsuario(usuario);
+            compra.setEvento(evento);
+
+            compraRepository.save(compra);
+
+            evento.setIngressosDisponiveis(evento.getIngressosDisponiveis() - 1);
+            eventoRepository.save(evento);
+
+            return "Compra realizada com sucesso para o evento: " + evento.getNome();
         } else {
             return "Ingressos esgotados";
         }
     }
 
     public String cancelarCompra(Long eventoId, Long usuarioId) {
-        Evento evento = eventoRepository.findById(eventoId).orElseThrow(() -> new RuntimeException("Evento não encontrado"));
+        Evento evento = eventoRepository.findById(eventoId)
+                .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
 
-        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        if (usuario.getEventosComprados().contains(evento)) {
-            usuario.getEventosComprados().remove(evento);
+        // Buscar a última compra desse usuário para o evento
+        Compra compra = compraRepository.findTopByUsuarioAndEventoOrderByDataCompraDesc(usuario, evento);
+
+        if (compra != null) {
+            compraRepository.delete(compra);
             evento.setIngressosDisponiveis(evento.getIngressosDisponiveis() + 1);
-
             eventoRepository.save(evento);
-            usuarioRepository.save(usuario);
 
             return "Compra cancelada com sucesso para o evento: " + evento.getNome();
         } else {
-            return "Você não comprou ingresso para este evento";
+            return "Você não tem compras para este evento";
         }
     }
 
     public String atualizarEvento(String nomeEvento, Evento eventoAtualizado) {
-
-        Evento evento = eventoRepository.findByNome(nomeEvento).orElseThrow(()->new RuntimeException("Evento não encontrado"));
+        Evento evento = eventoRepository.findByNome(nomeEvento)
+                .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
 
         evento.setNome(eventoAtualizado.getNome());
         evento.setDescricao(eventoAtualizado.getDescricao());
@@ -90,9 +96,6 @@ public class EventoService {
         evento.setIngressosDisponiveis(eventoAtualizado.getIngressosDisponiveis());
 
         eventoRepository.save(evento);
-
-        return "Evento atualizado com sucecsso";
+        return "Evento atualizado com sucesso";
     }
-
 }
-
