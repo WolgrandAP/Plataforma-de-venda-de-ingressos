@@ -1,5 +1,6 @@
 package com.example.PlataformaIngressos.service;
 
+import com.example.PlataformaIngressos.model.Evento;
 import com.example.PlataformaIngressos.model.Usuario;
 import com.example.PlataformaIngressos.repository.EventoRepository;
 import com.example.PlataformaIngressos.repository.UsuarioRepository;
@@ -78,9 +79,17 @@ public class UsuarioService {
     }
 
     public String deletarUsuario(Long usuarioId) {
+
         Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(()->new RuntimeException("Usuário não encontrado"));
         usuarioRepository.delete(usuario);
         return "Usuário deletado com sucesso!";
+    }
+
+    public List<Evento> listarEventosComprados(Long usuarioId) {
+
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(()->new RuntimeException("Usuário não encontrado"));
+        return usuario.getEventosComprados();
+
     }
 
 

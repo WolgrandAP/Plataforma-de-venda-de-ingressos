@@ -1,5 +1,6 @@
 package com.example.PlataformaIngressos.controller;
 
+import com.example.PlataformaIngressos.model.Evento;
 import com.example.PlataformaIngressos.model.Usuario;
 import com.example.PlataformaIngressos.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,7 @@ public class UsuarioController {
         return usuarioService.deletarUsuario(usuarioId);
     }
 
+    @GetMapping("/listarEventosComprados/{usuarioId}")
+    public List<Evento> listarEventosComprados(@PathVariable Long usuarioId) { return usuarioService.listarEventosComprados(usuarioId); }
 
 }

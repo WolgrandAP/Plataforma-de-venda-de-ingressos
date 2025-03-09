@@ -1,5 +1,6 @@
 package com.example.PlataformaIngressos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -16,8 +17,14 @@ public class Usuario {
     private String email;
     private String senha;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Compra> compras = new ArrayList<>();
+
+    @JsonIgnore
+    @ElementCollection
+    @OneToMany()
+    private List<Evento> eventosComprados = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -57,5 +64,13 @@ public class Usuario {
 
     public void setCompras(List<Compra> compras) {
         this.compras = compras;
+    }
+
+    public List<Evento> getEventosComprados() {
+        return eventosComprados;
+    }
+
+    public void setEventosComprados(List<Evento> eventosComprados) {
+        this.eventosComprados = eventosComprados;
     }
 }

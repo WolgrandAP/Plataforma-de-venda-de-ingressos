@@ -46,10 +46,12 @@ public class EventoService {
         Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         if (evento.getIngressosDisponiveis() > 0) {
+            usuario.setEventosComprados();
 
             Compra compra = new Compra();
             compra.setUsuario(usuario);
             compra.setEvento(evento);
+
 
             compraRepository.save(compra);
 
