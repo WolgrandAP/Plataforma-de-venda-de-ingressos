@@ -42,13 +42,12 @@
 
 
 <script>
-    // Função para carregar os eventos no carrinho do localStorage
 
     async function carregarCarrinho() {
 
         const usuarioId = Number(localStorage.getItem('usuarioId')) + 1;
 
-        const response = await fetch("http://localhost:8080/usuario/listarEventosComprados/${usuarioId}}");
+        const response = await fetch(`http://localhost:8080/usuario/listarEventosComprados/${usuarioId}`);
 
         const eventosCarrinho = await response.json();
 
@@ -57,39 +56,41 @@
         if (eventosCarrinho.length === 0) {
             listaEventosCarrinho.innerHTML = "<p>Nenhum evento no carrinho.</p>";
         } else {
-            eventosCarrinho.forEach(evento => {
-                const eventoCard = `
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">${evento.nome}</h5>
-                                <p class="card-text"><strong>Data:</strong> ${evento.data}</p>
-                                <p class="card-text"><strong>Local:</strong> ${evento.local}</p>
-                                <p class="card-text"><strong>Preço:</strong> ${evento.precoIngresso}</p>
-                                <p class="card-text"><strong>Ingressos Comprados:</strong> ${evento.ingressosComprados}</p>
-                            </div>
+        eventosCarrinho.forEach(evento => {
+           const eventoCard = `
+               <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                             <h5 class="card-title">${evento.nome}</h5>
+                             <p class="card-text"><strong>Data:</strong> ${evento.data}</p>
+                             <p class="card-text"><strong>Local:</strong> ${evento.local}</p>
+                             <p class="card-text"><strong>Preço:</strong> ${evento.precoIngresso}</p>
+                
                         </div>
                     </div>
-                `;
-                listaEventosCarrinho.innerHTML += eventoCard;
-            });
-        }
-    }
+               </div>
+           `;
+           listaEventosCarrinho.innerHTML += eventoCard;
+        });}
+
+
+
+}
 
     // Carregar o carrinho ao carregar a página
     window.onload = carregarCarrinho;
 
+
     // Redireciona para a tela de eventos
     function irParaEventos() {
         window.location.href = "tela1.html";
-    }
+}
 
     // Função de logout
     function logout() {
         localStorage.removeItem('usuarioId');
         window.location.href = "index.html";
-    }
-
+}
 
 
 </script>
