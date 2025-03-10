@@ -65,7 +65,7 @@
                              <p class="card-text"><strong>Data:</strong> ${evento.data}</p>
                              <p class="card-text"><strong>Local:</strong> ${evento.local}</p>
                              <p class="card-text"><strong>Preço:</strong> ${evento.precoIngresso}</p>
-
+                             <button class="btn btn-primary" onclick="cancelarCompra(${evento.id})">Cancelar Compra</button>
                         </div>
                     </div>
                </div>
@@ -79,6 +79,18 @@
 
     // Carregar o carrinho ao carregar a página
     window.onload = carregarCarrinho;
+
+
+    async function cancelarCompra(eventoId) {
+    const usuarioId = Number(localStorage.getItem('usuarioId')) + 1; // Recupera o ID do usuário do localStorage
+
+    const response = await fetch(`http://localhost:8080/evento/cancelarCompra/${eventoId}/cancelar/${usuarioId}`, {
+        method: "DELETE"
+    });
+
+    const result = await response.text();
+    alert(result);
+}
 
 
     // Redireciona para a tela de eventos
