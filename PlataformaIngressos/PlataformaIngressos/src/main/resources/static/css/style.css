@@ -27,6 +27,25 @@ nav ul {
     justify-content: center;
 }
 
+.navbar {
+    background-color: #ffffff; /* Cor de fundo escura para a navbar */
+    padding: 1rem 2rem; /* Ajuste o espaçamento interno (padding) */
+}
+
+/* Personalizando o botão de Logout */
+.navbar-nav .nav-item .btn.btn-secondary {
+    background-color: #17a2b8; /* Cor de fundo do botão */
+    color: #ffffff; /* Cor do texto do botão */
+    border: none; /* Retira a borda */
+}
+
+/* Personalizando o botão de Carrinho */
+.navbar-nav .nav-item .btn.btn-info {
+    background-color: #17a2b8; /* Cor de fundo do botão */
+    color: #ffffff; /* Cor do texto do botão */
+    border: none; /* Retira a borda */
+}
+
 nav ul li {
     margin: 0 15px;
 }

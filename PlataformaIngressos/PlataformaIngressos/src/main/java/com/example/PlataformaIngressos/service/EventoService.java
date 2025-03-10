@@ -46,7 +46,7 @@ public class EventoService {
         Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         if (evento.getIngressosDisponiveis() > 0) {
-            usuario.setEventosComprados();
+            usuario.getEventosComprados().add(evento);
 
             Compra compra = new Compra();
             compra.setUsuario(usuario);
@@ -75,6 +75,8 @@ public class EventoService {
         Compra compra = compraRepository.findTopByUsuarioAndEventoOrderByDataCompraDesc(usuario, evento);
 
         if (compra != null) {
+            usuario.getEventosComprados().remove(evento);
+
             compraRepository.delete(compra);
             evento.setIngressosDisponiveis(evento.getIngressosDisponiveis() + 1);
             eventoRepository.save(evento);
@@ -90,9 +92,8 @@ public class EventoService {
                 .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
 
         evento.setNome(eventoAtualizado.getNome());
-        evento.setDescricao(eventoAtualizado.getDescricao());
+        evento.setData(eventoAtualizado.getData());
         evento.setPrecoIngresso(eventoAtualizado.getPrecoIngresso());
-        evento.setQuantidadeIngresso(eventoAtualizado.getQuantidadeIngresso());
         evento.setIngressosDisponiveis(eventoAtualizado.getIngressosDisponiveis());
 
         eventoRepository.save(evento);

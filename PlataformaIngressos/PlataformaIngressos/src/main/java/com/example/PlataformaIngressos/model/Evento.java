@@ -14,9 +14,9 @@ public class Evento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private String descricao;
-    private double precoIngresso;
-    private int quantidadeIngresso;
+    private String data;
+    private String local;
+    private String precoIngresso;
     private int ingressosDisponiveis;
 
     @JsonIgnore
@@ -41,28 +41,28 @@ public class Evento {
         this.nome = nome;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getData() {
+        return data;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setData(String data) {
+        this.data = data;
     }
 
-    public double getPrecoIngresso() {
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public String getPrecoIngresso() {
         return precoIngresso;
     }
 
-    public void setPrecoIngresso(double precoIngresso) {
+    public void setPrecoIngresso(String precoIngresso) {
         this.precoIngresso = precoIngresso;
-    }
-
-    public int getQuantidadeIngresso() {
-        return quantidadeIngresso;
-    }
-
-    public void setQuantidadeIngresso(int quantidadeIngresso) {
-        this.quantidadeIngresso = quantidadeIngresso;
     }
 
     public List<Compra> getParticipantes() {

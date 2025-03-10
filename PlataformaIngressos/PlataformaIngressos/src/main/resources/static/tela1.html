@@ -10,16 +10,16 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-white bg-white">
     <div class="container">
-        <a class="navbar-brand" href="#">IF-Tickets</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/templates/index.html">Voltar para Login</a>
+                    <button class="btn btn-secondary" onclick="logout()">Logout</button>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-info" onclick="irParaCarrinho()">Carrinho</button>
                 </li>
             </ul>
         </div>
@@ -34,9 +34,7 @@
 
 <!-- Lista de Eventos -->
 <div class="container">
-    <div class="row" id="listaEventos">
-        <!-- Os eventos serão adicionados dinamicamente aqui -->
-    </div>
+    <div class="row" id="listaEventos"></div>
 </div>
 
 <!-- Footer -->
@@ -48,15 +46,12 @@
 <script src="/static/js/script.js"></script>
 
 <script>
-    // Simulação de eventos (pode vir do backend futuramente)
-    const eventos = [
-        { nome: "Show do Coldplay", data: "15/04/2025", local: "Estádio Morumbi", preco: "R$ 250,00" },
-        { nome: "Festival de Rock", data: "22/06/2025", local: "Allianz Parque", preco: "R$ 180,00" },
-        { nome: "Stand-Up Comedy", data: "10/07/2025", local: "Teatro Municipal", preco: "R$ 90,00" }
-    ];
+    async function carregarEventos() {
+        const response = await fetch("http://localhost:8080/evento/listarEventos");
+        const eventos = await response.json();
 
-    function carregarEventos() {
         const listaEventos = document.getElementById("listaEventos");
+
         eventos.forEach(evento => {
             const eventoCard = `
                 <div class="col-md-4">
@@ -65,8 +60,9 @@
                             <h5 class="card-title">${evento.nome}</h5>
                             <p class="card-text"><strong>Data:</strong> ${evento.data}</p>
                             <p class="card-text"><strong>Local:</strong> ${evento.local}</p>
-                            <p class="card-text"><strong>Preço:</strong> ${evento.preco}</p>
-                            <button class="btn btn-primary" onclick="comprarIngresso('${evento.nome}')">Comprar</button>
+                            <p class="card-text"><strong>Preço:</strong> ${evento.precoIngresso}</p>
+                            <p class="card-text"><strong>Ingressos Disponíveis:</strong> ${evento.ingressosDisponiveis}</p>
+                            <button class="btn btn-primary" onclick="comprarIngresso(${evento.id})">Comprar</button>
                         </div>
                     </div>
                 </div>
@@ -75,11 +71,29 @@
         });
     }
 
-    function comprarIngresso(eventoNome) {
-        alert(`Ingresso para "${eventoNome}" comprado com sucesso!`);
-    }
+    window.onload = carregarEventos; // Chama a função quando a página carregar
 
-    document.addEventListener("DOMContentLoaded", carregarEventos);
+    async function comprarIngresso(eventoId) {
+    const usuarioId = Number(localStorage.getItem('usuarioId')) + 1; // Recupera o ID do usuário do localStorage
+
+    const response = await fetch(`http://localhost:8080/evento/vender/${eventoId}/comprar/${usuarioId}`, {
+        method: "POST"
+    });
+
+    const result = await response.text();
+    alert(result);
+}
+
+    async function logout() {
+        const usuarioId = Number(localStorage.getItem('usuarioId')) + 1;
+        localStorage.removeItem('usuarioId'); // Limpa o ID do usuário
+        window.location.href = "index.html"; // Redireciona para a tela inicial de login
+}
+
+    async function irParaCarrinho() {
+        window.location.href = "tela2.html";
+}
+
 </script>
 
 </body>

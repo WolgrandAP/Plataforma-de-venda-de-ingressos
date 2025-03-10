@@ -1,24 +1,21 @@
 package com.example.PlataformaIngressos.dto;
 
 import com.example.PlataformaIngressos.model.Evento;
-import com.example.PlataformaIngressos.repository.EventoRepository;
-import org.springframework.beans.BeanUtils;
 
 public class EventoDTO {
 
     private Long id;
     private String nome;
     private String descricao;
-    private double precoIngresso;
+    private String precoIngresso;
     private int quantidadeIngresso;
     private int ingressosDisponiveis;
 
     public EventoDTO(Evento evento) {
         this.id = evento.getId();
         this.nome = evento.getNome();
-        this.descricao = evento.getDescricao();
+        this.descricao = evento.getData();
         this.precoIngresso = evento.getPrecoIngresso();
-        this.quantidadeIngresso = evento.getQuantidadeIngresso();
         this.ingressosDisponiveis = evento.getIngressosDisponiveis();
     }
 
@@ -48,11 +45,11 @@ public class EventoDTO {
         this.descricao = descricao;
     }
 
-    public double getPrecoIngresso() {
+    public String getPrecoIngresso() {
         return precoIngresso;
     }
 
-    public void setPrecoIngresso(double precoIngresso) {
+    public void setPrecoIngresso(String precoIngresso) {
         this.precoIngresso = precoIngresso;
     }
 

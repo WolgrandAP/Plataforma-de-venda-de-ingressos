@@ -18,12 +18,8 @@ public class Usuario {
     private String senha;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<Compra> compras = new ArrayList<>();
-
-    @JsonIgnore
     @ElementCollection
-    @OneToMany()
+    @ManyToMany()
     private List<Evento> eventosComprados = new ArrayList<>();
 
     public Long getId() {
@@ -58,13 +54,6 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public List<Compra> getCompras() {
-        return compras;
-    }
-
-    public void setCompras(List<Compra> compras) {
-        this.compras = compras;
-    }
 
     public List<Evento> getEventosComprados() {
         return eventosComprados;
