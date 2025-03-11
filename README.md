@@ -40,5 +40,4 @@ cd if-tickets.
 
 
 Capturas de tela da interface gráfica em funcionamento
-
 [Telas da interface gráfica](https://github.com/user-attachments/files/19187630/Interface.pdf)
