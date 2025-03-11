@@ -36,7 +36,11 @@ async function loginUsuario() {
 
 
 // Função para fazer o logout
-
+function mostrarSecao(secaoId) {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("formularioCadastro").style.display = "none";
+    document.getElementById(secaoId).style.display = "block";
+}
 
 
 
