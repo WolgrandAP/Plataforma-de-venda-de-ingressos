@@ -1,4 +1,3 @@
-//cadastrar um novo usuário
 async function cadastrarUsuario() {
     const nome = document.getElementById("nomeCadastro").value;
     const email = document.getElementById("emailCadastro").value;
@@ -28,7 +27,6 @@ async function obterIdUsuario(email) {
 
 }
 
-//realizar login
 async function loginUsuario() {
     const email = document.getElementById("emailLogin").value;
     const senha = document.getElementById("senhaLogin").value;
@@ -50,7 +48,6 @@ async function loginUsuario() {
 }
 
 
-// Função para fazer o logout
 function mostrarSecao(secaoId) {
     document.getElementById("login").style.display = "none";
     document.getElementById("formularioCadastro").style.display = "none";
