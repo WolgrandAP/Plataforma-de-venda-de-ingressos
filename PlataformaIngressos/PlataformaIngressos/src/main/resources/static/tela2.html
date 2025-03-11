@@ -45,7 +45,8 @@
 
     async function carregarCarrinho() {
 
-        const usuarioId = Number(localStorage.getItem('usuarioId')) + 1;
+
+        const usuarioId = localStorage.getItem("usuarioId");
 
         const response = await fetch(`http://localhost:8080/usuario/listarEventosComprados/${usuarioId}`);
 
@@ -80,9 +81,8 @@
     // Carregar o carrinho ao carregar a página
     window.onload = carregarCarrinho;
 
-
     async function cancelarCompra(eventoId) {
-    const usuarioId = Number(localStorage.getItem('usuarioId')) + 1; // Recupera o ID do usuário do localStorage
+    const usuarioId = localStorage.getItem("usuarioId"); // Recupera o ID do usuário do localStorage
 
     const response = await fetch(`http://localhost:8080/evento/cancelarCompra/${eventoId}/cancelar/${usuarioId}`, {
         method: "DELETE"
@@ -100,8 +100,8 @@
 
     // Função de logout
     function logout() {
-        localStorage.removeItem('usuarioId');
         window.location.href = "index.html";
+
 }
 
 

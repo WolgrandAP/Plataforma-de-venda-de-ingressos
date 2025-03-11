@@ -74,7 +74,7 @@
     window.onload = carregarEventos; // Chama a função quando a página carregar
 
     async function comprarIngresso(eventoId) {
-    const usuarioId = Number(localStorage.getItem('usuarioId')) + 1; // Recupera o ID do usuário do localStorage
+    const usuarioId = localStorage.getItem("usuarioId"); // Recupera o ID do usuário do localStorage
 
     const response = await fetch(`http://localhost:8080/evento/vender/${eventoId}/comprar/${usuarioId}`, {
         method: "POST"
@@ -85,8 +85,7 @@
 }
 
     async function logout() {
-        const usuarioId = Number(localStorage.getItem('usuarioId')) + 1;
-        localStorage.removeItem('usuarioId'); // Limpa o ID do usuário
+        const usuarioId = localStorage.getItem("usuarioId");
         window.location.href = "index.html"; // Redireciona para a tela inicial de login
 }
 

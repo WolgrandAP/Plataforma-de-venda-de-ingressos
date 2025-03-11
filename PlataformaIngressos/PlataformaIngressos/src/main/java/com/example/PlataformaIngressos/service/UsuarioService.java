@@ -92,5 +92,12 @@ public class UsuarioService {
 
     }
 
+    public Long buscarIdPorEmail(String email) {
+        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(()->new RuntimeException("Usuário não encontrado"));
+
+        return usuario.getId();
+
+    }
+
 
 }

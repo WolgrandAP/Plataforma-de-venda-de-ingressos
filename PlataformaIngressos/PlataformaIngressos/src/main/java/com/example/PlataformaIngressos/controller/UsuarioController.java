@@ -50,4 +50,7 @@ public class UsuarioController {
     @GetMapping("/listarEventosComprados/{usuarioId}")
     public List<Evento> listarEventosComprados(@PathVariable Long usuarioId) { return usuarioService.listarEventosComprados(usuarioId); }
 
+
+    @GetMapping("/buscarIdPorEmail/{email}")
+    public Long buscarPorId(@PathVariable String email) { return usuarioService.buscarIdPorEmail(email); }
 }

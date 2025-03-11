@@ -10,8 +10,22 @@ async function cadastrarUsuario() {
         body: JSON.stringify({ nome, email, senha })
     });
 
+    const usuarioId = await obterIdUsuario(email);
+
+
     const result = await response.text();
     alert(result);
+}
+
+async function obterIdUsuario(email) {
+
+    const response = await fetch(`http://localhost:8080/usuario/buscarIdPorEmail/${email}`);
+
+    const usuarioId = await response.json();
+    localStorage.setItem("usuarioId", usuarioId); // Salva no localStorage
+
+    return usuarioId;
+
 }
 
 //realizar login
@@ -29,6 +43,7 @@ async function loginUsuario() {
     alert(result);
 
     if (result === "Login bem-sucedido.") {
+        const usuarioId = localStorage.getItem("usuarioId");
         window.location.href = "/tela1.html"; // Redireciona para a tela1.html
     }
 
