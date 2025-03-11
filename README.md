@@ -40,4 +40,26 @@ cd if-tickets.
 
 
 Capturas de tela da interface gráfica em funcionamento
-[Telas da interface gráfica](https://github.com/user-attachments/files/19187630/Interface.pdf)
+[Telas da interface gráfica](https://github.com/user-attachments/files/19187630/Interface.pdf
+
+ESTRUTURA DE PROJETO
+
+Plataforma de venda de ingressos/
+ ├── src/
+ │   ├── main/
+ │   │   ├── java/
+ │   │   │   └── com/exemplo/PlataformaIngressos/
+ │   │   │       ├── PlatafromaIngressosApplication.java 
+ │   │   │       ├── controller/
+ │   │   │       ├── model/
+ │   │   │       ├── repository/
+ │   │   │       └── service/
+ │   │   └── resources/
+ |   |       ├── import.sql
+ │   │       ├── application.properties
+ │   │       └── static/
+ └── pom.xml      ├── css/
+                  ├── js/
+                  ├── index.html
+                  ├── tela1.html
+                  ├── tela2.html
