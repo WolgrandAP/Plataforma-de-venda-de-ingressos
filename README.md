@@ -24,11 +24,13 @@ JavaScript, HTML e CSS: Tecnologias básicas para a interface do usuário.
 
 Conceitos de POO Aplicados:
 Classes e Objetos: Modelagem de entidades como Usuario, Evento e Ingresso.
-Composição: Relacionamento entre classes (ex.: Evento contém uma lista de Ingresso).
-Herança: Criação de classes específicas (ex.: Admin herda de Usuario).
-Polimorfismo: Métodos com comportamentos diferentes (ex.: cancelarCompra() em Ingresso e IngressoVIP).
-Encapsulamento: Proteção de dados (ex.: atributo senha privado em Usuario).
-Interfaces e Classes Abstratas: Definição de contratos e comportamentos comuns (ex.: interface Autenticavel).
+Composição: Relacionamento entre classes .
+Herança: Criação de classes específicas .
+Polimorfismo: Métodos com comportamentos diferentes .
+Encapsulamento: Proteção de dados. 
+Interfaces e Classes Abstratas: Definição de contratos e comportamentos comuns.
+
+
 Como Executar o Projeto
 Clone o repositório:
 git clone https://github.com/seu-usuario/if-tickets.git
@@ -40,26 +42,5 @@ cd if-tickets.
 
 
 Capturas de tela da interface gráfica em funcionamento
+
 [Telas da interface gráfica](https://github.com/user-attachments/files/19187630/Interface.pdf
-
-ESTRUTURA DE PROJETO
-
-Plataforma de venda de ingressos/
- ├── src/
- │   ├── main/
- │   │   ├── java/
- │   │   │   └── com/exemplo/PlataformaIngressos/
- │   │   │       ├── PlatafromaIngressosApplication.java 
- │   │   │       ├── controller/
- │   │   │       ├── model/
- │   │   │       ├── repository/
- │   │   │       └── service/
- │   │   └── resources/
- |   |       ├── import.sql
- │   │       ├── application.properties
- │   │       └── static/
- └── pom.xml      ├── css/
-                  ├── js/
-                  ├── index.html
-                  ├── tela1.html
-                  ├── tela2.html
